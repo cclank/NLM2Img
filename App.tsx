@@ -35,6 +35,7 @@ const App: React.FC = () => {
   const [fileName, setFileName] = useState<string>('');
   const [layoutMode, setLayoutMode] = useState<LayoutMode>('vertical');
   const [pagesPerGroup, setPagesPerGroup] = useState<number>(1);
+  const [showStampDesigner, setShowStampDesigner] = useState<boolean>(true);
 
   const handleFileSelect = async (file: File) => {
     try {
@@ -134,6 +135,28 @@ const App: React.FC = () => {
                  </button>
               </div>
 
+              {/* Stamp Designer Toggle */}
+              <div className="bg-[#ffffff] p-4 rounded-xl border border-[#e0e0e0] shadow-sm">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-medium text-[#383838]">Stamp Designer</span>
+                  <button
+                    onClick={() => setShowStampDesigner(!showStampDesigner)}
+                    className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none ${
+                      showStampDesigner ? 'bg-[#d97757]' : 'bg-[#e0e0e0]'
+                    }`}
+                  >
+                    <span
+                      className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                        showStampDesigner ? 'translate-x-6' : 'translate-x-1'
+                      }`}
+                    />
+                  </button>
+                </div>
+                <p className="text-xs text-[#6b6b6b] mt-2">
+                  {showStampDesigner ? 'Enabled - Add custom stamps to your documents' : 'Disabled - Process PDFs without stamps'}
+                </p>
+              </div>
+
               <LayoutControls
                 currentMode={layoutMode}
                 onChange={setLayoutMode}
@@ -147,10 +170,12 @@ const App: React.FC = () => {
                 />
               )}
 
-              <StampControls
-                config={stampConfig}
-                onChange={setStampConfig}
-              />
+              {showStampDesigner && (
+                <StampControls
+                  config={stampConfig}
+                  onChange={setStampConfig}
+                />
+              )}
             </div>
 
             {/* Preview Area */}
@@ -161,6 +186,7 @@ const App: React.FC = () => {
                 layoutMode={layoutMode}
                 pagesPerGroup={pagesPerGroup}
                 isProcessing={status === ProcessingStatus.PROCESSING_PDF}
+                showStampDesigner={showStampDesigner}
               />
             </div>
           </div>

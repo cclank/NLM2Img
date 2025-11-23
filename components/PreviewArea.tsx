@@ -9,9 +9,10 @@ interface PreviewAreaProps {
   isProcessing: boolean;
   layoutMode: LayoutMode;
   pagesPerGroup: number;
+  showStampDesigner: boolean;
 }
 
-const PreviewArea: React.FC<PreviewAreaProps> = ({ pages, stampConfig, isProcessing, layoutMode, pagesPerGroup }) => {
+const PreviewArea: React.FC<PreviewAreaProps> = ({ pages, stampConfig, isProcessing, layoutMode, pagesPerGroup, showStampDesigner }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [previewUrls, setPreviewUrls] = useState<string[]>([]);
   const [isStitching, setIsStitching] = useState(false);
@@ -106,7 +107,8 @@ const PreviewArea: React.FC<PreviewAreaProps> = ({ pages, stampConfig, isProcess
       // Short delay to allow UI to update to loading state
       await new Promise(r => setTimeout(r, 50));
 
-      const stampCanvas = createStampCanvas();
+      // Only create stamp canvas if stamp designer is enabled
+      const stampCanvas = showStampDesigner ? createStampCanvas() : null;
 
       if (layoutMode === 'grouped') {
         // Generate all grouped images
@@ -122,7 +124,7 @@ const PreviewArea: React.FC<PreviewAreaProps> = ({ pages, stampConfig, isProcess
     };
 
     generate();
-  }, [pages, stampConfig, layoutMode, pagesPerGroup]);
+  }, [pages, stampConfig, layoutMode, pagesPerGroup, showStampDesigner]);
 
 
   const handleDownload = (url?: string, index?: number) => {
