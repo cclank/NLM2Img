@@ -32,9 +32,6 @@ A powerful web application that combines multi-page PDFs into a single continuou
 2. Create a new project on Vercel and import your repository
 3. Vercel will automatically deploy your app
 
-## Recommended AI Assistant
-
-This project was developed with the help of [Claude](https://claude.ai/), an AI assistant that provides excellent code understanding and implementation suggestions. We highly recommend using Claude for development tasks.
 
 ## Stamp Designer Toggle
 
