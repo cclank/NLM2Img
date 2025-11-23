@@ -1,9 +1,19 @@
 import { GoogleGenAI, Type } from "@google/genai";
 
 // Initialize Gemini Client
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+const apiKey = process.env.API_KEY || process.env.GEMINI_API_KEY;
+const ai = apiKey ? new GoogleGenAI({ apiKey }) : null;
 
 export const generateStampSuggestion = async (description: string): Promise<{ text: string; subText: string }> => {
+  // If no API key is set, return a default response
+  if (!ai) {
+    console.warn("No API key set for Gemini AI - returning default stamp text");
+    return {
+      text: "APPROVED",
+      subText: new Date().getFullYear().toString()
+    };
+  }
+
   try {
     const model = "gemini-2.5-flash";
     const prompt = `Generate a short, traditional or professional stamp/seal text (max 4-6 characters) based on this user description: "${description}". Also provide a very short date or role string (max 8 chars) for a sub-line. Return JSON.`;
@@ -32,10 +42,14 @@ export const generateStampSuggestion = async (description: string): Promise<{ te
 
     const jsonText = response.text;
     if (!jsonText) throw new Error("No response from AI");
-    
+
     return JSON.parse(jsonText);
   } catch (error) {
     console.error("Gemini API Error:", error);
-    throw new Error("Failed to generate stamp text.");
+    // Return a default response if AI fails
+    return {
+      text: "APPROVED",
+      subText: new Date().getFullYear().toString()
+    };
   }
 };
