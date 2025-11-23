@@ -42,6 +42,6 @@ The Stamp Designer feature can be toggled on/off:
 To toggle the Stamp Designer, look for the switch in the application interface.
 
 
-## 配色灵感
+## Color Scheme Inspiration
 
-本项目的温暖配色方案灵感来源于 [Lumina Style Studio](https://lumina-style-studio.vercel.app/)，该设计系统为我们提供了"Helpful Warmth"主题的基础。
+This project's warm color palette was inspired by [Lumina Style Studio](https://lumina-style-studio.vercel.app/), which provided the foundation for our "Helpful Warmth" theme.
