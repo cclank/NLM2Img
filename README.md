@@ -1,8 +1,12 @@
 # PDF Stitcher & Stamp
 
-[Image #1]
+![PDF Stitcher & Stamp](pdf2img.jpg)
 
 A powerful web application that combines multi-page PDFs into a single continuous image and applies custom digital stamps. Process your PDFs directly in the browser with full privacy - no data leaves your computer.
+
+## Design Inspiration
+
+This project's warm color palette and design aesthetics were inspired by [Lumina Style Studio](https://lumina-style-studio.vercel.app/), which provided the foundation for our "Helpful Warmth" theme.
 
 ## Features
 
